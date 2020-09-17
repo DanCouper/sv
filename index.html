@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SV</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="site-header-wrapper">
+      <header class="site-header">
+        <figure class="site-branding">
+          <svg
+            class="site-logo"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 50 54"
+          >
+            <path
+              class="site-logo-bg"
+              d="M3.33 14.53L24.91 2.07l21.57 12.46v24.9L24.91 51.89 3.33 39.43v-24.9z"
+            />
+            <path
+              class="site-logo-fg"
+              d="M24.91 47.4a.43.43 0 01-.25-.07L7.41 37.38a.5.5 0 01-.25-.44V22a.5.5 0 01.5-.5.5.5 0 01.5.5v14.65l16.75 9.67 16.76-9.67V22.86l-12.2 7a.5.5 0 01-.5 0 .52.52 0 01-.25-.43v-5a.5.5 0 01.25-.43l12.2-7-16.25-9.38L8.66 17l16.5 9.53a.5.5 0 01.25.43v14.96a.5.5 0 01-.5.5.5.5 0 01-.5-.5V27.27l-17-9.82a.5.5 0 010-.87l17.26-10a.5.5 0 01.5 0l17.25 10a.5.5 0 01.25.43.52.52 0 01-.25.44l-12.7 7.33v3.82l12.2-7a.5.5 0 01.5 0 .5.5 0 01.25.43v15a.5.5 0 01-.25.43l-17.26 10a.47.47 0 01-.25-.06z"
+            />
+          </svg>
+        </figure>
+        <h1 class="site-title">Sutor Vignette</h1>
+      </header>
+    </div>
+    <main class="site-body-wrapper">
+      <article class="article">
+        <header class="article-header">
+          <h1 class="article-title">Coding and designing a blog</h1>
+          <section class="article-meta">
+            <p>Wednesday, 28<sup>th</sup> May 2020</p>
+          </section>
+          <section class="article-overview">
+            <p>
+              Let's say I want to write an article on {subject}. Scratch that –
+              I want to start a <i>blog</i>, because ego. This think pops into
+              my head several times a month, but never actually reifies.
+            </p>
+            <p>
+              Full dislosure: I am a programmer who came to programming from
+              visual design, so my intentions are doubly fucked due to requiring
+              both a perfect design and a perfect codebase.
+            </p>
+            <p>
+              So I'm going to do that again, and I'm going to walk through it.
+              I'll start with a very basic HTML, then gradually add some
+              styling, then abstract the end HTML out into something repeatable
+              that I don't have to think about. I'm <i>trying</i> to stick to
+              the principle of
+              <abbr title="You Ain't Gonna Need It">YAGNI</abbr>; to avoid
+              coding myself into a corner I will need to make a few
+              optimisations based on what I expect to happen in the future, and
+              at some point I will need to introduce some JS (I just don't
+              really fancy figuring out the HTML/CSS structure I'd need to make
+              the checkbox hack work to run all of the functionality on this
+              page)
+            </p>
+          </section>
+        </header>
+        <section class="article-section" id="html-structure">
+          <header class="article-section-header">
+            <h1 class="article-section-title">HTML Structure</h1>
+          </header>
+          <div class="article-section-body">
+            <p>
+              I have a site header, then a main area in which there's one
+              article (this one). That article has a header containing the title
+              and some meta information. And that article is divided into
+              sections. Each section has a header and a div tag containing the
+              body content.
+              <em
+                >TODO: toggle to turn document structure on and off (use CSS to
+                display)</em
+              >
+            </p>
+          </div>
+        </section>
+        <section class="article-section" id="initial-styling">
+          <header class="article-section-header">
+            <h1 class="article-section-title">Initial styling</h1>
+          </header>
+          <div class="article-section-body">
+            <p>
+              Firstly, the text runs across the full width of the page. This
+              isn't <i>too much</i> of an issue if you're looking at this on
+              mobile, but it's definitely not great if you're looking at it on a
+              desktop. I want to limit the length of the lines of text to
+              something a bit more readable, and I'd like the text to sit in a
+              column down the middle of the page. Easy:
+            </p>
+            <pre class="lolight"><code>body {
+  margin: 0 auto;
+  max-width: 50rem;
+}</code></pre>
+            <p>
+              Secondly, I <i>like</i> serif text, but not the default Times New
+              Roman (you won't see this if you're viewing in mobile) -- it's
+              condensed and it all looks like a Microsoft Word document from the
+              late 1990s. I'm going to go with sans-serif anyway for now, and
+              I'm going to add what I guess you'd call the system UI defaults.
+              These fonts are <i>generally</i> whatever is used for UI on any
+              given system. They are designed primarily to make text on controls
+              easy to read, but tend to work <i>pretty</i> well for body text. I
+              want a very clean look, and they will work well for that.
+            </p>
+            <pre class="lolight"><code>:root {
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}</code></pre>
+            <p>
+              I could stop here. This works: it isn't fantastic by any means,
+              but it's clean and pretty readable. However, I'm not going to stop
+              here because design.
+            </p>
+          </div>
+        </section>
+        <section class="article-section" id="intial-typography">
+          <header class="article-section-header">
+            <h1 class="article-section-title">Initial Typography</h1>
+          </header>
+          <div class="article-section-body">
+            <p>
+              Typography is pretty important when you want to make something
+              look readable and professional. Like programming, it engenders
+              extremely fierce tribal loyalties, causes raging battles over
+              minor points and is exceptionally boring to outsiders. I'll kinda
+              skip over most of the theory and say it's basically how you space
+              out letters on a page.
+            </p>
+            <p>
+              So I have, within an article, an overall title, then a series of
+              sections, each with their own title. I want those section spaced
+              out slightly: they seem to run onto each other too much. And for
+              good measure, add a bit of padding to the body.
+            </p>
+            <pre class="lolight"><code>*,
+*::before,
+
+*::after {
+  box-sizing: inherit;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  line-height: 1.5;
+  margin: 0 auto;
+  max-width: 50rem;
+  padding: 4rem 1rem;
+}
+
+article > header,
+section:not(:last-child) {
+  padding-bottom: 2rem;
+}
+
+section > header > h1,
+section > div > p {
+  font-size: 1rem;
+  padding-bottom: 1rem;
+}</code></pre>
+          </div>
+        </section>
+        <section class="article-section" id="adding-classes">
+          <header class="article-section-header">
+            <h1 class="article-section-title">Adding classes</h1>
+          </header>
+          <div class="article-section-body">
+            <p>
+              Applying styles to bare, nested elements is going to get annoying
+              fast, so time to add some classes and keep everything nice and
+              flat.
+            </p>
+            <p>
+              At the same time, I'll adjust the HTML a bit – instead of just
+              centring the body, I'm going to centre content <i>within</i> the
+              main components of the page (and remove the padding from the
+              body). The reason for doing this is that I can then control the
+              background and horizontal borders on a per-component basis. It
+              means I need wrapper elements, but it's a lot more flexible.
+            </p>
+            <pre class="lolight"><code>body {
+  line-height: 1.5;
+}
+
+.site-header,
+.article {
+  margin: 0 auto;
+  max-width: 50rem;
+  padding: 0 1rem;
+}
+
+.site-header,
+.article-header,
+.article-section:not(:last-child) {
+  padding-bottom: 2rem;
+}
+
+.article-section-title,
+.article-section-body p {
+  font-size: 1rem;
+  padding-bottom: 1rem;
+}</code></pre>
+            <p>
+              As an example, I want a very thin border beneath the blog title,
+              just to split it off visually from the rest of the page.
+            </p>
+            <pre class="lolight"><code>.site-header-wrapper {
+  border-bottom: 1px solid black;
+}
+          </code></pre>
+          </div>
+        </section>
+        <section class="article-section" id="ugh-horrible">
+          <header class="article-section-header">
+            <h1 class="article-section-title">Ugh, horrible</h1>
+          </header>
+          <div class="article-section-body">
+            <p>There are a few issues here:</p>
+            <ol>
+              <li>
+                The site header looks awful – the spacing is all wrong, and the
+                black of the border, despite being the same colour as the text,
+                is too strong.
+              </li>
+              <li>
+                I want the first article section to be an overview, so it needs
+                to move to the article header.
+              </li>
+              <li>Code blocks cause the page to scroll horizontally.</li>
+              <li>
+                The only text elements I've really thought about are the
+                paragraphs and headers – not, for example, lists.
+              </li>
+            </ol>
+            <p>
+              I'll fix these one by one. I'll start by adding some variables for
+              colour and spacing.
+            </p>
+            <pre class="lolight"><code>:root {
+  --colour-bg-base: hsla(0, 0, 88, 1);
+  --colour-fg-base: hsla(0, 0, 8, 1);
+  --colour-fg-base-faded: rgba(0, 0, 8, 0.1);
+
+  --spacing-small: 0.5rem;
+  --spacing-base: 1rem;
+  --spacing-large: 1.5rem;
+  --spacing-xlarge: 2rem;
+
+  --font-size-small: 0.75rem;
+  --font-size-base: 1rem;
+  --font-size-large: 1.25rem;
+  --font-size-xlarge: 1.5rem;
+  --font-size-xxlarge: 2rem;
+
+  --font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+  Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+
+  font-family: var(--font-family-base);
+  color: var(--colour-fg-base);
+  background-color: var(--colour-bg-base);
+}</code></pre>
+            <p>
+              I then replace values in the stylesheet with the variables. I
+              don't <i>need</i> to do this, but it makes it hella easier to
+              adjust values.
+            </p>
+          </div>
+        </section>
+        <section class="article-section" id="site-header">
+          <header class="article-section-header">
+            <h1 class="article-section-title">Site Header</h1>
+          </header>
+          <div class="article-section-body">
+            <p>This needs a lot more work, but for now:</p>
+            <ul>
+              <li>
+                Add a branding element, with an SVG logo with fills using the
+                colour variables.
+              </li>
+              <li>Set the title to a defined size.</li>
+              <li>
+                Give it a little room, and add a margin between it and the main
+                body.
+              </li>
+              <li>
+                Set the display to flex and push logo and title to opposite
+                ends.
+              </li>
+              <li>Set the alpha channel of the border colour to 0.1 (10%).</li>
+            </ul>
+            <pre class="lolight"><code>.site-header-wrapper,
+.site-body {
+  border-bottom: 1px solid var(--colour-fg-base-faded);
+  margin-bottom: var(--spacing-xlarge);
+}
+
+.site-header,
+.article {
+  margin: 0 auto;
+  max-width: 50rem;
+  padding: 0 var(--spacing-base);
+}
+
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.site-title {
+  font-size: var(--font-size-xxlarge);
+}
+
+.site-branding {
+  width: calc(1.5 * var(--spacing-xlarge));
+}
+
+.site-logo-bg {
+  fill: var(--colour-fg-base);
+}
+
+.site-logo-fg {
+  fill: var(--colour-bg-base);
+}</code></pre>
+          </div>
+        </section>
+        <section class="article-section" id="article-header">
+          <header class="article-section-header">
+            <h1 class="article-section-title">Article Header</h1>
+          </header>
+          <div class="article-section-body">
+            <p>
+              The article header will be used as the overview for the article.
+              So it needs to stand out slightly. It goes in the header, and has
+              the same basic styling as section text. To make it stand out
+              slightly, I'll apply an oblique styling to the text.
+            </p>
+            <pre class="lolight"><code>.article-overview {
+  padding: var(--spacing-small) 0;
+  font-style: oblique;
+}
+
+.article-overview > * {
+  padding-bottom: var(--spacing-small);
+}
+
+.article-section-title {
+  font-size: var(--font-size-large);
+}
+
+.article-section-title,
+.article-section-body > * {
+  padding-bottom: var(--spacing-base);
+}</code></pre>
+            <p>
+              Note that I've selected all direct children to apply padding --
+              this takes care of spacing between all block-level section
+              children.
+            </p>
+          </div>
+        </section>
+        <section class="article-section" id="code-blocks">
+          <header class="article-section-header">
+            <h1 class="article-section-title">Code blocks</h1>
+          </header>
+          <div class="article-section-body">
+            <p>
+              This uses a port of lolight.js, loaded as a module & used as a
+              progressive enhancement. I'm also loading in a light version of
+              Fira Code to use as the font face -- light because if needs to sit
+              slightly back from the text. The code blocks sit in wells on the
+              page, and back up the text rather than being the sole focal point.
+              I'm <em>not</em> happy with this at the minute, so this is
+              basically a placeholder.
+            </p>
+          </div>
+        </section>
+        <section class="article-section" id="other-elements">
+          <header class="article-section-header">
+            <h1 class="article-section-title">Other Elements</h1>
+          </header>
+          <div class="article-section-body">
+            <p>
+              I'm missing styling on a load of other elements. Not a huge issue,
+              but there are several things that will come up time and time again
+              (anchors, images, lists, quotes amongst others)
+            </p>
+            <ul>
+              <li>
+                Unordered lists -- the bullets are a little distacting, shrink
+                'em. And space eveyting out a little.
+              </li>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+            </ul>
+
+            <pre class="lolight"><code> ul {
+list-
+  }
+            </code></pre>
+          </div>
+        </section>
+        <!-- <section class="article-section" id="adding-a-stylesheet-with-defaults">
+          <header class="article-section-header"><h1 class="article-section-title">Adding a stylesheet with defaults</h1></header>
+          <div class="article-section-body">
+            <p>
+              I add a `style.css` file alongside this & reference it in the
+              HTML. To start it, I'll add a basic rule I add to all my CSS:
+            </p>
+            <pre class="lolight"><code>
+:root {
+    box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+        </code></pre>
+            <p>
+              I'll not go into the reasons for it here, suffice to say that it
+              makes laying out the design much easier. It is a sane default.
+              It's not going to matter too much at first, but as I add padding
+              and borders, it'll revent weirdnesses caused by CSS' default box
+              model sizing.
+              <b>TODO: link to explanation</b>
+            </p>
+          </div>
+        </section> -->
+      </article>
+    </main>
+    <script type="module">
+      import { lolight } from "./scripts/highlighter.js";
+
+      lolight(".lolight > code");
+    </script>
+  </body>
+</html>
